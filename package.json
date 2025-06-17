@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-postgres-context",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "n8n nodes for AI context management with PostgreSQL",
   "keywords": [
     "n8n",
