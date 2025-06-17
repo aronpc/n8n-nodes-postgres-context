@@ -15,6 +15,7 @@ Follow these steps to install this custom node package:
 
 1. Go to your n8n installation directory
 2. Run `npm install n8n-nodes-postgres-context`
+   - Note: If you encounter an error about the package not being found, wait a few minutes and try again. It can take some time for newly published packages to propagate through the npm registry system.
 3. Restart n8n
 
 ## PostgreSQL Setup
