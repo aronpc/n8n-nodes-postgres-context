@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-postgres-context",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "n8n nodes for AI context management with PostgreSQL",
   "keywords": [
     "n8n",
@@ -11,14 +11,9 @@
     "postgresql"
   ],
   "license": "MIT",
-  "homepage": "https://n8n.io",
   "author": {
     "name": "Aron Peyroteo",
     "email": "aron@mqx.com.br"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aronpc/n8n-nodes-postgres-context.git"
   },
   "main": "index.js",
   "scripts": {
@@ -27,7 +22,7 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "lintfix": "eslint . --fix",
-    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js src",
+    "prepublishOnly": "npm run build && eslint -c .eslintrc.prepublish.js src",
     "test": "ts-node tests/database.test.ts"
   },
   "files": [

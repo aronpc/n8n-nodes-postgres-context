@@ -1,4 +1,19 @@
 import { Pool, PoolClient } from 'pg';
+import { logError } from './logger';
+
+// Define interface for context data
+export interface IContext {
+  id: number;
+  chat_id: string;
+  user_id: string | null;
+  agent_id: string | null;
+  session_key: string;
+  context_key: string;
+  context_type: string;
+  context_value: Record<string, unknown>;
+  created_at: Date;
+  updated_at: Date;
+}
 
 // Context types as defined in the requirements
 export const CONTEXT_TYPES = [
@@ -36,7 +51,7 @@ export async function ensureAiContextsTable(connectionString: string): Promise<v
     `);
 
   } catch (error) {
-    console.error('Error ensuring AI contexts table exists:', error);
+    logError('Error ensuring AI contexts table exists:', error);
     throw error;
   } finally {
     if (client) {
@@ -52,7 +67,7 @@ export async function getContextsByType(
   chatId: string,
   alwaysIncludeTypes: string[] = [],
   limitsPerType: Array<{ type: string; limit: number }> = []
-): Promise<any[]> {
+): Promise<IContext[]> {
   const pool = new Pool({ connectionString });
   let client: PoolClient | null = null;
 
@@ -63,7 +78,7 @@ export async function getContextsByType(
     await ensureAiContextsTable(connectionString);
 
     // Build a query to get all contexts that match the criteria
-    let contexts: any[] = [];
+    let contexts: IContext[] = [];
 
     // First, get all contexts of types that should always be included
     if (alwaysIncludeTypes.length > 0) {
@@ -98,7 +113,7 @@ export async function getContextsByType(
 
     return contexts;
   } catch (error) {
-    console.error('Error getting contexts by type:', error);
+    logError('Error getting contexts by type:', error);
     throw error;
   } finally {
     if (client) {
@@ -114,10 +129,10 @@ export async function saveContext(
   chatId: string,
   contextKey: string,
   contextType: string,
-  contextValue: any,
+  contextValue: Record<string, unknown>,
   userId?: string,
   agentId?: string,
-  sessionKey: string = 'default'
+  sessionKey = 'default'
 ): Promise<void> {
   const pool = new Pool({ connectionString });
   let client: PoolClient | null = null;
@@ -143,7 +158,7 @@ export async function saveContext(
       [chatId, userId, agentId, sessionKey, contextKey, contextType, contextValue]
     );
   } catch (error) {
-    console.error('Error saving context:', error);
+    logError('Error saving context:', error);
     throw error;
   } finally {
     if (client) {
@@ -159,7 +174,7 @@ export async function getContext(
   chatId: string,
   contextKey: string,
   contextType: string
-): Promise<any | null> {
+): Promise<IContext | null> {
   const pool = new Pool({ connectionString });
   let client: PoolClient | null = null;
 
@@ -179,7 +194,7 @@ export async function getContext(
 
     return result.rows.length > 0 ? result.rows[0] : null;
   } catch (error) {
-    console.error('Error getting context:', error);
+    logError('Error getting context:', error);
     throw error;
   } finally {
     if (client) {
