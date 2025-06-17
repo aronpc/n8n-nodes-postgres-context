@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-postgres-context",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "n8n nodes for AI context management with PostgreSQL",
   "keywords": [
     "n8n",
@@ -13,6 +13,7 @@
   "author": "Aron Peyroteo Cardoso",
   "license": "MIT",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "build": "tsc && gulp build:icons",
     "dev": "tsc --watch",
@@ -57,8 +58,8 @@
     "typescript": "~4.8.4"
   },
   "peerDependencies": {
-    "n8n-core": "*",
-    "n8n-workflow": "*"
+    "n8n-core": ">=0.125.0",
+    "n8n-workflow": ">=0.107.0"
   },
   "engines": {
     "node": ">=14.0.0",
