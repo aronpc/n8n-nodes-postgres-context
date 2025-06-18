@@ -1,10 +1,10 @@
 {
   "name": "n8n-nodes-postgres-context",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "n8n nodes for AI context management with PostgreSQL",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && cp src/nodes/ContextManager/contextManager.svg dist/nodes/ContextManager/ && cp src/nodes/ExternalContext/externalContext.svg dist/nodes/ExternalContext/",
+    "build": "tsc && cp nodes/ContextManager/contextManager.svg dist/nodes/ContextManager/ && cp nodes/ExternalContext/externalContext.svg dist/nodes/ExternalContext/",
     "dev": "tsc --watch",
     "test": "jest"
   },
