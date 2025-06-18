@@ -9,16 +9,6 @@ This package contains two nodes for managing AI context in n8n workflows:
 1. **Context Manager Node**: Used within AI agent flows to retrieve contexts by type, with filtering and limits.
 2. **External Context Node**: Used to save or retrieve external contexts from any type and scope.
 
-## Installation
-
-Follow these steps to install this custom node package:
-
-1. Go to your n8n installation directory
-2. Run `npm install n8n-nodes-postgres-context`
-   - Note: If you encounter an error about the package not being found, wait a few minutes and try again. It can take some time for newly published packages to propagate through the npm registry system.
-   - If you encounter an error like "The specified package could not be loaded", make sure you're using version 1.0.3 or later which fixes a package structure issue.
-3. Restart n8n
-
 ## PostgreSQL Setup
 
 Before using these nodes, you need to set up a PostgreSQL database with the following table:
@@ -135,6 +125,10 @@ The following context types are supported:
 - Use ExternalContextNode for programmatic populations (via Webhook, Workers, etc).
 - Add TTL with periodic cleaning by updated_at.
 - Index by chat_id and context_type for performance.
+
+## Examples
+
+This package includes example workflows in the `examples` directory that demonstrate how to use the nodes in n8n. See the [examples README](examples/README.md) for more information.
 
 ## License
 

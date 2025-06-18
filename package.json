@@ -1,12 +1,15 @@
 {
   "name": "n8n-nodes-postgres-context",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "n8n nodes for AI context management with PostgreSQL",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && cp nodes/ContextManager/contextManager.svg dist/nodes/ContextManager/ && cp nodes/ExternalContext/externalContext.svg dist/nodes/ExternalContext/",
+    "build": "npx rimraf dist && tsc && gulp build:icons",
     "dev": "tsc --watch",
-    "test": "jest"
+    "format": "prettier ./nodes/**/* --write",
+    "lint": "eslint ./nodes/**/*.ts",
+    "lintfix": "eslint ./nodes/**/*.ts --fix",
+    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js"
   },
   "keywords": [
     "n8n",
@@ -19,21 +22,33 @@
   "author": "Aron Peyroteo Cardoso",
   "license": "MIT",
   "devDependencies": {
+    "@eslint/js": "^9.29.0",
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.9",
     "@types/pg": "^8.6.6",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
-    "@typescript-eslint/parser": "^5.42.1",
-    "eslint": "^8.27.0",
-    "eslint-plugin-n8n-nodes-base": "^1.11.0",
-    "gulp": "^5.0.1",
-    "prettier": "^2.7.1",
-    "typescript": "~4.8.4"
+    "@typescript-eslint/parser": "~8.32.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-n8n-nodes-base": "^1.16.3",
+    "globals": "^16.2.0",
+    "gulp": "^5.0.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.34.1"
   },
   "dependencies": {
-    "n8n-core": "^1.0.0",
-    "n8n-workflow": "^1.0.0",
     "pg": "^8.8.0"
+  },
+  "peerDependencies": {
+    "n8n-core": "*",
+    "n8n-workflow": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aronpc/n8n-nodes-postgres-context.git"
+  },
+  "engines": {
+    "node": ">=20.15"
   },
   "n8n": {
     "n8nNodesApiVersion": 1,

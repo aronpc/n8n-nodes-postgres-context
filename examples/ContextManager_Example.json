@@ -1,0 +1,100 @@
+{
+  "name": "Context Manager Example",
+  "nodes": [
+    {
+      "parameters": {
+        "chatId": "chat-123",
+        "alwaysInclude": [
+          "api"
+        ],
+        "limitsPerType": {
+          "limits": [
+            {
+              "type": "user",
+              "limit": 20
+            },
+            {
+              "type": "agent",
+              "limit": 10
+            }
+          ]
+        },
+        "connectionString": "postgresql://username:password@localhost:5432/database"
+      },
+      "name": "Context Manager",
+      "type": "n8n-nodes-postgres-context.contextManager",
+      "typeVersion": 1,
+      "position": [
+        880,
+        300
+      ]
+    },
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        660,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "=JSON.stringify($json.contexts, null, 2)",
+        "height": 400,
+        "width": 400
+      },
+      "name": "Display Contexts",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Context Manager",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Context Manager": {
+      "main": [
+        [
+          {
+            "node": "Display Contexts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "",
+  "id": "1",
+  "meta": {
+    "instanceId": "example"
+  },
+  "tags": [
+    {
+      "name": "example",
+      "createdAt": "2023-01-01T00:00:00.000Z",
+      "updatedAt": "2023-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "context",
+      "createdAt": "2023-01-01T00:00:00.000Z",
+      "updatedAt": "2023-01-01T00:00:00.000Z"
+    }
+  ]
+}

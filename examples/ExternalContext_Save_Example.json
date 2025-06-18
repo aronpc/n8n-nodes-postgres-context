@@ -1,0 +1,92 @@
+{
+  "name": "External Context Save Example",
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "save",
+        "chatId": "chat-123",
+        "contextKey": "weather-forecast",
+        "contextType": "api",
+        "contextValue": "{\"city\":\"Arraial do Cabo\",\"temperature\":\"27°C\",\"status\":\"Ensolarado\"}",
+        "userId": "user-456",
+        "agentId": "agent-789",
+        "sessionKey": "session-abc",
+        "connectionString": "postgresql://username:password@localhost:5432/database"
+      },
+      "name": "External Context",
+      "type": "n8n-nodes-postgres-context.externalContext",
+      "typeVersion": 1,
+      "position": [
+        880,
+        300
+      ]
+    },
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        660,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "=JSON.stringify($json, null, 2)",
+        "height": 400,
+        "width": 400
+      },
+      "name": "Display Result",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "External Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "External Context": {
+      "main": [
+        [
+          {
+            "node": "Display Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "",
+  "id": "2",
+  "meta": {
+    "instanceId": "example"
+  },
+  "tags": [
+    {
+      "name": "example",
+      "createdAt": "2023-01-01T00:00:00.000Z",
+      "updatedAt": "2023-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "context",
+      "createdAt": "2023-01-01T00:00:00.000Z",
+      "updatedAt": "2023-01-01T00:00:00.000Z"
+    }
+  ]
+}

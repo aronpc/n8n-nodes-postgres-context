@@ -1,0 +1,189 @@
+{
+  "name": "Combined Context Management Example",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "save",
+        "chatId": "chat-123",
+        "contextKey": "user-profile",
+        "contextType": "user",
+        "contextValue": "{\"name\":\"John Doe\",\"email\":\"john@example.com\",\"preferences\":{\"language\":\"pt-BR\",\"theme\":\"dark\"}}",
+        "userId": "user-456",
+        "sessionKey": "session-abc",
+        "connectionString": "postgresql://username:password@localhost:5432/database"
+      },
+      "name": "Save User Profile",
+      "type": "n8n-nodes-postgres-context.externalContext",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "save",
+        "chatId": "chat-123",
+        "contextKey": "agent-config",
+        "contextType": "agent",
+        "contextValue": "{\"name\":\"Support Agent\",\"capabilities\":[\"customer-service\",\"technical-support\"],\"language\":\"pt-BR\"}",
+        "agentId": "agent-789",
+        "sessionKey": "session-abc",
+        "connectionString": "postgresql://username:password@localhost:5432/database"
+      },
+      "name": "Save Agent Config",
+      "type": "n8n-nodes-postgres-context.externalContext",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "save",
+        "chatId": "chat-123",
+        "contextKey": "weather-forecast",
+        "contextType": "api",
+        "contextValue": "{\"city\":\"Arraial do Cabo\",\"temperature\":\"27°C\",\"status\":\"Ensolarado\"}",
+        "sessionKey": "session-abc",
+        "connectionString": "postgresql://username:password@localhost:5432/database"
+      },
+      "name": "Save Weather API Data",
+      "type": "n8n-nodes-postgres-context.externalContext",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "chat-123",
+        "alwaysInclude": [
+          "api"
+        ],
+        "limitsPerType": {
+          "limits": [
+            {
+              "type": "user",
+              "limit": 5
+            },
+            {
+              "type": "agent",
+              "limit": 3
+            }
+          ]
+        },
+        "connectionString": "postgresql://username:password@localhost:5432/database"
+      },
+      "name": "Retrieve All Contexts",
+      "type": "n8n-nodes-postgres-context.contextManager",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "=JSON.stringify($json.contexts, null, 2)",
+        "height": 400,
+        "width": 400
+      },
+      "name": "Display All Contexts",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Save User Profile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save User Profile": {
+      "main": [
+        [
+          {
+            "node": "Save Agent Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Agent Config": {
+      "main": [
+        [
+          {
+            "node": "Save Weather API Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Weather API Data": {
+      "main": [
+        [
+          {
+            "node": "Retrieve All Contexts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve All Contexts": {
+      "main": [
+        [
+          {
+            "node": "Display All Contexts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "",
+  "id": "4",
+  "meta": {
+    "instanceId": "example"
+  },
+  "tags": [
+    {
+      "name": "example",
+      "createdAt": "2023-01-01T00:00:00.000Z",
+      "updatedAt": "2023-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "context",
+      "createdAt": "2023-01-01T00:00:00.000Z",
+      "updatedAt": "2023-01-01T00:00:00.000Z"
+    }
+  ]
+}
