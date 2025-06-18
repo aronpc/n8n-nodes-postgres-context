@@ -119,12 +119,12 @@ export class ContextManagerNode implements INodeType {
           returnData.push({
             json: {
               success: false,
-              error: error.message,
+              error: error instanceof Error ? error.message : String(error),
             },
           });
           continue;
         }
-        throw new NodeOperationError(this.getNode(), error);
+        throw new NodeOperationError(this.getNode(), error instanceof Error ? error : String(error));
       }
     }
 
