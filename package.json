@@ -1,7 +1,13 @@
 {
   "name": "n8n-nodes-postgres-context",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "n8n nodes for AI context management with PostgreSQL",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && cp src/nodes/ContextManager/contextManager.svg dist/nodes/ContextManager/ && cp src/nodes/ExternalContext/externalContext.svg dist/nodes/ExternalContext/",
+    "dev": "tsc --watch",
+    "test": "jest"
+  },
   "keywords": [
     "n8n",
     "n8n-node",
@@ -12,31 +18,6 @@
   ],
   "author": "Aron Peyroteo Cardoso",
   "license": "MIT",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "tsc && cp src/nodes/ContextManager/contextManager.svg dist/nodes/ContextManager/ && cp src/nodes/ExternalContext/externalContext.svg dist/nodes/ExternalContext/",
-    "dev": "tsc --watch",
-    "format": "prettier --write .",
-    "lint": "eslint .",
-    "lintfix": "eslint . --fix",
-    "prepublishOnly": "npm run build && eslint -c .eslintrc.prepublish.js src",
-    "test": "ts-node tests/database.test.ts",
-    "prepare": "npm run build"
-  },
-  "files": [
-    "dist",
-    "index.js",
-    "README.md",
-    "src"
-  ],
-  "n8n": {
-    "n8nNodesApiVersion": 1,
-    "credentials": [],
-    "nodes": [
-      "dist/nodes/ContextManager/ContextManager.node.js",
-      "dist/nodes/ExternalContext/ExternalContext.node.js"
-    ]
-  },
   "devDependencies": {
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.9",
@@ -45,19 +26,21 @@
     "@typescript-eslint/parser": "^5.42.1",
     "eslint": "^8.27.0",
     "eslint-plugin-n8n-nodes-base": "^1.11.0",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.1",
     "prettier": "^2.7.1",
     "typescript": "~4.8.4"
   },
-  "peerDependencies": {
-    "n8n-core": ">=0.125.0",
-    "n8n-workflow": ">=0.107.0"
-  },
-  "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=6.0.0"
-  },
   "dependencies": {
+    "n8n-core": "^1.0.0",
+    "n8n-workflow": "^1.0.0",
     "pg": "^8.8.0"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [],
+    "nodes": [
+      "dist/nodes/ContextManager/ContextManager.node.js",
+      "dist/nodes/ExternalContext/ExternalContext.node.js"
+    ]
   }
 }

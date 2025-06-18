@@ -1,3 +1,8 @@
-// Export the node types directly
-const { nodeTypes } = require('./dist/index.js');
-module.exports = nodeTypes;
+// This file is the entry point for n8n
+// It exports the node types from the compiled dist directory
+
+const { nodeTypes } = require('./dist/index');
+
+module.exports = {
+  nodeTypes,
+};
